@@ -2,7 +2,10 @@
     <div class="login">
         <div class="login-main">
             <Card class="card">
-                <h1>快速注册</h1>
+                <Breadcrumb class="breadcrumb">
+                    <BreadcrumbItem to="/login">登录</BreadcrumbItem>
+                    <BreadcrumbItem to="/register">快速注册</BreadcrumbItem>
+                </Breadcrumb>
                 <Form class="form" ref="formValidate" :model="formValidate" :rules="ruleValidate">
                     <FormItem prop="telPhone">
                         <Input size="large" v-model="formValidate.telPhone" :maxlength="11" placeholder="请输入你的手机号码"></Input>
@@ -148,9 +151,12 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: fill;
-    margin-top: 50px;
+    // margin-top: 50px;
     background: url("../../assets/carimg/signup-back.a22bc70d.jpg");
     background-size: cover;
+    .breadcrumb {
+        margin-bottom: 20px;
+    }
     .card {
         position: fixed;
         left: 50%;

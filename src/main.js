@@ -12,6 +12,7 @@ import rule from './libs/password_regexp';//引入密码验证强弱
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios //把axios添加到vue原型
 Vue.prototype.$cookie = Cookies;//cookie操作

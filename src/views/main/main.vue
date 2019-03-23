@@ -1,38 +1,20 @@
 <template>
   <div class="main">
     <el-container>
-        <el-header class="header">
+        <el-header class="header" style="height: 100px;">
             <div class="main-logo">
               <img class="logo" src="@/assets/carimg/logo.png" alt=""><span class="logo-title">易行租车</span> 
             </div>
             <nav class="main-nav">
                 <router-link tag="li" to="main">&nbsp;&nbsp;首页</router-link>
-                <router-link tag="li" to="attention">&nbsp;&nbsp;短时租车</router-link>
-                <router-link tag="li" to="weather">&nbsp;&nbsp;长时租车</router-link>
+                <router-link tag="li" to="attention">&nbsp;&nbsp;我要租车</router-link>
+                <!-- <router-link tag="li" to="weather">&nbsp;&nbsp;长时租车</router-link> -->
                 <router-link tag="li" to="flightManage">&nbsp;&nbsp;成为车主</router-link>
-                <router-link tag="li" to="flightManage">&nbsp;&nbsp;关于易行</router-link>
+                <!-- <router-link tag="li" to="flightManage">&nbsp;&nbsp;关于易行</router-link> -->
             </nav>
             <div class="main-user-message">
-                <el-button type="primary" @click="logins">登录/注册</el-button>
-                <!-- <Icon type="md-notifications" /> -->
-                <!-- <Icon type="md-person" /> -->
-                <!-- <Dropdown trigger="hover">
-                    <a href="javascript:void(0)" @click="login">
-                        {{userName || '登录/注册'}}
-                        <Icon type="ios-arrow-down"/>
-                    </a>
-                    <DropdownMenu slot="list" v-show="logoutShow">
-                        <DropdownItem>
-                            <router-link to="userinfo" >我的信息</router-link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <router-link to="changePassword">修改密码</router-link>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <div @click="logout">退出</div>
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown> -->
+                <el-button v-show="loginShow" type="primary" @click="logins">登录/注册</el-button>
+                <span class="user" v-show="!loginShow" @click="userNameSub">用户{{userName}}，欢迎你</span>
             </div>
         </el-header>
     </el-container>
@@ -41,16 +23,46 @@
 </template>
 
 <script>
+import interlayer from '@/views/interlayer/interlayer'
     export default {
         data() {
             return {
-                // activeIndex: '1',
-                // activeIndex2: '1'
+                loginShow:true,
             }
+        },
+        created() {
+            this.getUserName();
+            interlayer.$on('active', item => {
+            this.userName = item;
+            this.getUserName();
+            })
         },
         methods: {
             logins () {
                 this.$router.push({name: '登录'});
+            },
+            /**
+             * 获取cookie，用户昵称
+             */
+            getUserName () {
+                this.userName = this.$cookie.get('userName') || '';
+                this.isAdmin = this.$cookie.get('isAdmin') || '';
+                if(this.userName != '') {
+                    this.loginShow = false;
+                }
+                // if(this.isAdmin == '1'){
+                //     this.adminShow = true;
+                // }else {
+                //     this.adminShow = false;
+                // }
+                // if (this.userName != '') {
+                //     this.logoutShow = true;
+                // }else {
+                //     this.logoutShow = false;
+                // }
+            },
+            userNameSub () {
+                this.$router.push({name: '个人中心'});
             }
         }
   }
@@ -60,13 +72,16 @@
 .main {
 
     height: 100%;
+    .menu {
+        position: relative;
+        top: -100px;
+    }
     li {
         list-style:none; 
     }
     .header {
         width: 100%;
         padding-right:30px;
-        height: 100px;
         // background-color: #444c58;
         display: block;
         .main-logo {
@@ -112,6 +127,9 @@
             // color: rgba(209, 209, 209, 1);
             height: 100%;
             line-height: 100px;
+            .user {
+                cursor: pointer;
+            }
             .ivu-icon-md-person {
                 float: left;
                 height: 100%;

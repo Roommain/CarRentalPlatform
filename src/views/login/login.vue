@@ -33,6 +33,7 @@
 
 <script>
 import md5 from 'js-md5';
+import interlayer from '@/views/interlayer/interlayer'
 export default {
     data() {
         const valphone = (rule, value, callback) => {
@@ -82,12 +83,13 @@ export default {
                         .then(data => {
                             if (data.data.code == 200) {
                                 this.$Message.success(data.data.msg);
-                                // this.userName = data.data.data.userName;
-                                // this.$cookie.set('userName',this.userName);
+                                this.userName = data.data.data.userName;
+                                this.$cookie.set('userName',this.userName);
                                 // this.$cookie.set('isAdmin',data.data.data.isAdmin);
                                 // this.$cookie.set('token',this.token);
                                 // this.closeLogin();
-                                // this.$router.push({name: '首页'});
+                                interlayer.$emit('active',this.userName);
+                                this.$router.push({name: '首页'});
                             }else {
                                 this.$Message.error(data.data.msg);
                             }
@@ -154,7 +156,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: fill;
-    margin-top: 50px;
+    // margin-top: 50px;
     background: url("../../assets/carimg/signup-back.a22bc70d.jpg");
     background-size: cover;
     .card {

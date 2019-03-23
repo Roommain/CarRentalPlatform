@@ -72,7 +72,6 @@ export default {
 
 <style lang="less" scoped>
 .home {
-    padding-top: 20px;
     .img {
         width: 100%;
         height: 100%;

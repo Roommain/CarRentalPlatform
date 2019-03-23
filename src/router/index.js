@@ -32,9 +32,36 @@ const router = new Router({
             component: resolve => require(['@/views/register/register'], resolve),
         },
         {
-            path: '/login',
-            name: '登录',
-            component: resolve => require(['@/views/login/login'], resolve),
+            path: '/findPassword',
+            name: '找回密码',
+            component: resolve => require(['@/views/findPassword/findPassword'], resolve),
+        },
+        {
+          path: '/message_main',
+          name: '个人中心',
+          redirect: '/userinfo',
+          meta: {
+            permissions: true,
+          },
+          component: resolve => require(['@/views/user_message/message_main'], resolve),
+          children:[
+            {
+              path: '/changePassword',
+              name: '修改密码',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/user_message/userChangePassword'], resolve),
+            },
+            {
+              path: '/userinfo',
+              name: '我的信息',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/user_message/userinfo'], resolve),
+            },
+          ]
         },
       ]
     },
@@ -44,14 +71,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if(to.meta.permissions){
-    var token = cookie.get('token');
+    var token = cookie.get('userName');
     if(token){
       next();
     }else{
       next({
-        path:'/',
+        name: "登录", path:'/login',
       });
-      Vue.prototype.$Message.warning('请先登录');
+      // Vue.prototype.$Message.warning('请先登录');
     }
   }else{
     next();
