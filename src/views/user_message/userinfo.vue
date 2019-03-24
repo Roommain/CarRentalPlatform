@@ -4,34 +4,24 @@
             <!-- <h1 class="title">个人资料</h1> -->
             <div>
                 <Form class="form" :model="formItem" :label-width="100">
-                    <FormItem label="用户昵称">
+                    <FormItem label="昵称">
                         <Input size="large" v-model="formItem.userName" style="width: 300px"></Input>
                     </FormItem>
-                    <FormItem label="用户邮箱">
-                        <AutoComplete
-                            v-model="formItem.email"
-                            @on-search="emailHandleSearch"
-                            placeholder="请输入邮箱"
-                            size="large"
-                            style="width:300px">
-                            <Option v-for="item in emailData" :value="item" :key="item">{{ item }}</Option>
-                        </AutoComplete>
+                    <FormItem label="邮箱" >
+                        <span>{{formItem.email}}</span>
+                        <!-- <Input size="large" disabled v-model="formItem.email" style="width: 300px"></Input> -->
                     </FormItem>
-                    <FormItem label="常驻城市">
-                        <AutoComplete
-                            v-model="formItem.city"
-                            :data="cityData"
-                            :filter-method="filterMethod"
-                            size="large"
-                            style="width:300px">
-                        </AutoComplete>
+                    <FormItem label="电话">
+                        <span>{{formItem.telPhone}}</span>
+                        <!-- <Input size="large" disabled v-model="formItem.telPhone" style="width: 300px"></Input> -->
                     </FormItem>
-                    <FormItem label="生日">
-                        <Row>
-                            <Col span="11">
-                                <DatePicker size="large" type="date" v-model="formItem.birthday" style="width: 300px"></DatePicker>
-                            </Col>
-                        </Row>
+                    <FormItem label="实名认证">
+                        <span :class="{'autonym':formItem.isVip,'unAutonym':!formItem.isVip}">{{newVip(formItem.isVip)}}</span>
+                        <!-- <Input size="large" v-model="formItem.isVip" style="width: 300px"></Input> -->
+                    </FormItem>
+                    <FormItem label="年龄" v-show="ageShow">
+                        <span>{{formItem.age}}</span>
+                        <!-- <Input size="large" v-model="formItem.age" style="width: 300px"></Input> -->
                     </FormItem>
                     <FormItem label="性别">
                         <RadioGroup v-model="formItem.sex">
@@ -54,19 +44,43 @@ export default {
     data() {
         return {
             emailData: [],
+            ageShow: false,
             // userName: 'aaa',
             cityData: ['重庆', '成都', '上海', '北京'],
             formItem: {
                 userName: '',
                 email: '',
-                birthday: '',
-                city: '',
-                sex: '男',
+                isVip: 0,
+                sex: '',
+                telPhone: '',
+                age: 0,
+// email: "1182930079@qq.com"
+// isVip: "0"
+// sex: "男"
+// telPhone: "18223070173"
+// userName: "18223070173"
             }
         }
     },
     created() {
-        // this.requestInformation();
+        this.requestInformation();
+    },
+    computed: {
+        /**
+        * 封装进行状态修改的方法
+        * @param {Object} obj 当前渲染的对象
+        */
+       //是否实名
+        newVip(){
+            return function(obj) {
+                if(obj == 0){
+                    return '未实名';
+                }
+                 else if (obj == 1) {
+                    return '已实名';
+                }
+            };
+        },
     },
     methods: {
         filterMethod (value, option) {
@@ -84,13 +98,20 @@ export default {
             .then(data => {
                 if (data.data.code == 200) {
                     this.formItem = data.data.data;
+                    if (data.data.data.isVip == 1) {
+                        this.ageShow = true;
+                    }
                 }else {
                     this.$Message.error(data.data.msg);
                 }
             });
         },
         saveSubmit () {
-            this.$axios.put('api/user/saveUserInfo',this.formItem)
+            const param = {
+                userName:this.formItem.userName,
+                sex:this.formItem.sex,
+            }
+            this.$axios.put('api/user/updateUserInfo',param)
             .then(data => {
                 console.log(data);
                 if (data.data.code == 200) {
@@ -111,6 +132,12 @@ export default {
 <style lang="less" scoped>
 .userinfo {
     position: relative;
+    .autonym {
+        color: green;
+    }
+    .unAutonym {
+        color: red;
+    }
     .card {
         position: absolute;
         top: 100px;

@@ -1,6 +1,6 @@
 # car-rental-platform
 
-> 汽车在线租借平台
+> 汽车在线租借平台 http://120.79.66.215:9090/#/home
 
 ## Build Setup
 
@@ -18,15 +18,16 @@ npm run build
 npm run build --report
 ```
 ## 使用技术
-"axios": "^0.18.0",
-"element-ui": "^2.6.1",
-"iview": "^3.3.3",
-"js-cookie": "^2.2.0",
-"js-md5": "^0.7.3",
-"less": "^3.9.0",
-"less-loader": "^4.1.0",
-"vue": "^2.5.2",
-"vue-resource": "^1.5.1",
-"vue-router": "^3.0.1"
+``` bash
+# "axios": "^0.18.0",
+# "element-ui": "^2.6.1",
+# "iview": "^3.3.3",
+# "js-cookie": "^2.2.0",
+# "js-md5": "^0.7.3",
+# "less": "^3.9.0",
+# "less-loader": "^4.1.0",
+# "vue": "^2.5.2",
+# "vue-resource": "^1.5.1",
+# "vue-router": "^3.0.1"
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

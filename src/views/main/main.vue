@@ -28,6 +28,7 @@ import interlayer from '@/views/interlayer/interlayer'
         data() {
             return {
                 loginShow:true,
+                userName:'',
             }
         },
         created() {
