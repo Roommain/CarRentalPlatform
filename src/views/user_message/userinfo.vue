@@ -1,7 +1,6 @@
 <template>
     <div class="userinfo">
         <div class="card">
-            <!-- <h1 class="title">个人资料</h1> -->
             <div>
                 <Form class="form" :model="formItem" :label-width="100">
                     <FormItem label="昵称">
@@ -45,8 +44,6 @@ export default {
         return {
             emailData: [],
             ageShow: false,
-            // userName: 'aaa',
-            cityData: ['重庆', '成都', '上海', '北京'],
             formItem: {
                 userName: '',
                 email: '',
@@ -54,11 +51,6 @@ export default {
                 sex: '',
                 telPhone: '',
                 age: 0,
-// email: "1182930079@qq.com"
-// isVip: "0"
-// sex: "男"
-// telPhone: "18223070173"
-// userName: "18223070173"
             }
         }
     },

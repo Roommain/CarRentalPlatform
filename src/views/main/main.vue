@@ -7,10 +7,8 @@
             </div>
             <nav class="main-nav">
                 <router-link tag="li" to="main">&nbsp;&nbsp;首页</router-link>
-                <router-link tag="li" to="attention">&nbsp;&nbsp;我要租车</router-link>
-                <!-- <router-link tag="li" to="weather">&nbsp;&nbsp;长时租车</router-link> -->
-                <router-link tag="li" to="flightManage">&nbsp;&nbsp;成为车主</router-link>
-                <!-- <router-link tag="li" to="flightManage">&nbsp;&nbsp;关于易行</router-link> -->
+                <router-link tag="li" to="carRental">&nbsp;&nbsp;我要租车</router-link>
+                <router-link tag="li" to="owner">&nbsp;&nbsp;成为车主</router-link>
             </nav>
             <div class="main-user-message">
                 <el-button v-show="loginShow" type="primary" @click="logins">登录/注册</el-button>
@@ -50,6 +48,8 @@ import interlayer from '@/views/interlayer/interlayer'
                 this.isAdmin = this.$cookie.get('isAdmin') || '';
                 if(this.userName != '') {
                     this.loginShow = false;
+                }else {
+                    this.loginShow = true;
                 }
                 // if(this.isAdmin == '1'){
                 //     this.adminShow = true;

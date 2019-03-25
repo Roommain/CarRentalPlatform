@@ -11,6 +11,7 @@
                     width="320px"
                 >
                     <MenuItem name="/userinfo"><Icon type="md-contact" />&nbsp;我的信息</MenuItem>
+                    <MenuItem name="/certificate"><Icon type="md-cloud-upload" />&nbsp;证件实名</MenuItem>
                     <MenuItem name="/changePassword"><Icon type="md-lock" />&nbsp;修改密码</MenuItem>
                 </Menu>
             </div>

@@ -22,6 +22,16 @@ const router = new Router({
             component: resolve => require(['@/views/home/home'], resolve),
         },
         {
+            path: '/owner',
+            name: '我是车主',
+            component: resolve => require(['@/views/main/owner'], resolve),
+        },
+        {
+            path: '/carRental',
+            name: '我要租车',
+            component: resolve => require(['@/views/main/carRental'], resolve),
+        },
+        {
             path: '/login',
             name: '登录',
             component: resolve => require(['@/views/login/login'], resolve),
@@ -60,6 +70,14 @@ const router = new Router({
                 permissions: true,
               },
               component: resolve => require(['@/views/user_message/userinfo'], resolve),
+            },
+            {
+              path: '/certificate',
+              name: '证件实名',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/user_message/certificate'], resolve),
             },
           ]
         },

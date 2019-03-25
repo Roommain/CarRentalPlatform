@@ -82,7 +82,6 @@ export default {
                         .post('api/user/login',params)
                         .then(data => {
                             if (data.data.code == 200) {
-                                this.$Message.success(data.data.msg);
                                 this.userName = data.data.data.userName;
                                 this.$cookie.set('userName',this.userName);
                                 // this.$cookie.set('isAdmin',data.data.data.isAdmin);

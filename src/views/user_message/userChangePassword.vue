@@ -59,7 +59,6 @@
 
 <script>
 
-import md5 from 'js-md5';
 import interlayer from '@/views/interlayer/interlayer';
 export default {
     data() {
@@ -157,19 +156,14 @@ export default {
          */
         handleSubmit(formName) {
             this.$refs[formName].validate((valid) => {
-                // if (!valid) {
-                //     this.$Message.error('保存失败!');
-                // }
                 if (valid) {
-                    // md5加密
                     const params = {
-                        oldPassword : md5(this.modifyPwdForm.oldPassword),
-                        password : md5(this.modifyPwdForm.password),
-                        secondPassword : md5(this.modifyPwdForm.secondPassword),
+                        oldPassword : this.modifyPwdForm.oldPassword,
+                        newPassword : this.modifyPwdForm.password,
+                        surePassword : this.modifyPwdForm.secondPassword,
                     };
                     this.$axios
                         .put('api/user/changePassword', params).then(data => {
-                            console.log(data);
                         if (data.data.code == 200) {
                             this.$Message.success(data.data.msg);
                             this.logout(); // 暂定登出
@@ -189,8 +183,8 @@ export default {
             .then(data => {
                 if (data.data.code == 200) {
                     this.$cookie.remove('userName');
-                    this.$cookie.remove('token');
-                    this.$cookie.remove('isAdmin');
+                    // this.$cookie.remove('token');
+                    // this.$cookie.remove('isAdmin');
                     this.$router.push({ name: '首页' });
                     interlayer.$emit('active');
                 }else {
