@@ -5,6 +5,7 @@ import cookie from 'js-cookie';
 Vue.use(Router)
 
 const router = new Router({
+  linkExactActiveClass: 'active',
   routes: [
     {
       path: '/',

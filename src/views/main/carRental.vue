@@ -19,7 +19,7 @@
         </div>
         <ul class="img-box clearfix">
           <li v-for="(item,index) in imgData" :key="index">
-            <p><img :src=item.src alt=""></p>
+            <p><img :src=item.src alt="" @click="particulars()"></p>
             <p class="car-type">{{item.type}}</p>
             <p class="car-price"><span>{{item.price}}</span>元/天</p>
           </li>
@@ -28,7 +28,7 @@
           <el-pagination
             small
             layout="prev, pager, next"
-            :total="50">
+            :total="80">
           </el-pagination>         
         </div>
       </el-card>
@@ -68,6 +68,11 @@ export default {
             {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'400'},
             {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'500'},
         ]
+    }
+  },
+  methods: {
+    particulars () {
+      this.$Message.warning('暂无信息');
     }
   },
 }

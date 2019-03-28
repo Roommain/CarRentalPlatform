@@ -6,9 +6,9 @@
               <img class="logo" src="@/assets/carimg/logo.png" alt=""><span class="logo-title">易行租车</span> 
             </div>
             <nav class="main-nav">
-                <router-link tag="li" to="main">&nbsp;&nbsp;首页</router-link>
-                <router-link tag="li" to="carRental">&nbsp;&nbsp;我要租车</router-link>
-                <router-link tag="li" to="owner">&nbsp;&nbsp;成为车主</router-link>
+                <router-link tag="li" to="/home" active-class="active">&nbsp;&nbsp;首页</router-link>
+                <router-link tag="li" to="/carRental">&nbsp;&nbsp;我要租车</router-link>
+                <router-link tag="li" to="/owner">&nbsp;&nbsp;成为车主</router-link>
             </nav>
             <div class="main-user-message">
                 <el-button v-show="loginShow" type="primary" @click="logins">登录/注册</el-button>
@@ -158,6 +158,9 @@ import interlayer from '@/views/interlayer/interlayer'
                 }
             }
         }
+    }
+    .active {
+        color: rgb(90, 183, 86);
     }
 }
 </style>
