@@ -155,9 +155,9 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: fill;
+    background-size: cover;
     // margin-top: 50px;
     background: url("../../assets/carimg/signup-back.a22bc70d.jpg");
-    background-size: cover;
     .card {
         position: fixed;
         left: 50%;
