@@ -9,6 +9,7 @@
                 <router-link tag="li" to="/home" active-class="active">&nbsp;&nbsp;首页</router-link>
                 <router-link tag="li" to="/carRental">&nbsp;&nbsp;我要租车</router-link>
                 <router-link tag="li" to="/owner">&nbsp;&nbsp;成为车主</router-link>
+                <router-link v-show="adminShow" tag="li" to="/addassessment">&nbsp;&nbsp;后台管理</router-link>
             </nav>
             <div class="main-user-message">
                 <el-button v-show="loginShow" type="primary" @click="logins">登录/注册</el-button>
@@ -27,6 +28,7 @@ import interlayer from '@/views/interlayer/interlayer'
             return {
                 loginShow:true,
                 userName:'',
+                adminShow: false,
             }
         },
         created() {
@@ -51,11 +53,11 @@ import interlayer from '@/views/interlayer/interlayer'
                 }else {
                     this.loginShow = true;
                 }
-                // if(this.isAdmin == '1'){
-                //     this.adminShow = true;
-                // }else {
-                //     this.adminShow = false;
-                // }
+                if(this.isAdmin == '1'){
+                    this.adminShow = true;
+                }else {
+                    this.adminShow = false;
+                }
                 // if (this.userName != '') {
                 //     this.logoutShow = true;
                 // }else {

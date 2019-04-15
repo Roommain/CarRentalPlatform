@@ -82,6 +82,37 @@ const router = new Router({
             },
           ]
         },
+        {
+          path: '/backstage',
+          name: '后台管理',
+          component: resolve => require(['@/views/backstage/backmain'], resolve),
+          children:[
+            {
+              path: '/addassessment',
+              name: '录入车型',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/car_assessment/add_assessment'], resolve),
+            },
+            {
+              path: '/deleteassessment',
+              name: '删除车型',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/car_assessment/delete_assessment'], resolve),
+            },
+            {
+              path: '/updateassessment',
+              name: '修改车型',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/car_assessment/update_assessment'], resolve),
+            },
+          ]
+        },
       ]
     },
 
