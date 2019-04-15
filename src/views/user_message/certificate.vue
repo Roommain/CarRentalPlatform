@@ -2,7 +2,7 @@
     <div class="certificate">
       <el-tabs type="border-card" class="tabs" v-model="activeName">
         <el-tab-pane name="0" label="身份证">
-          <Form class="form" ref="formInline" :model="formInline" :rules="ruleInline" inline>
+          <Form class="form" ref="formInline" v-show="formShow" :model="formInline" :rules="ruleInline" inline>
               <FormItem prop="name">
                   <Input type="text" size="large" v-model="formInline.name" placeholder="姓名" style="width: 400px">
                   </Input>
@@ -17,9 +17,16 @@
                   <Button class="login-button" size="large" type="primary" @click="handleSubmit('formInline')" style="width: 400px">提交认证</Button>
               </FormItem>
           </Form>
+          <div v-show="!formShow">
+            <p class="identity">身份证认证成功</p>
+            验证的身份证为：{{idCard}}
+          </div>
         </el-tab-pane>
         <!-- 租客驾驶证 -->
         <el-tab-pane name="1" label="租客驾驶证">
+          <div v-show="!tenantShow">
+            <p class="identity">提交成功，等待审核中...</p>
+          </div>
           <el-form ref="form" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
             <!--elementui的上传图片的upload组件-->
@@ -50,6 +57,9 @@
         </el-tab-pane>
         <!-- 车主行驶证 -->
         <el-tab-pane name="2" label="车主行驶证">
+          <div v-show="!ownerShow">
+            <p class="identity">提交成功，等待审核中...</p>
+          </div>
           <el-form ref="form" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
             <el-upload
@@ -78,6 +88,13 @@
     data() {
         return {
           activeName: '0',
+          formShow: true,
+          tenantShow: true,
+          ownerShow: true,
+          idCard: '',
+          isIdCard: 0,
+          isTenant: 0,
+          isVehicleOwner: 0,
           form: {
             purpose: 'tenant'
           },
@@ -132,7 +149,7 @@
                     .post('api/user/identityAuthentication',params)
                     .then(data => {
                         if (data.data.code == 200) {
-
+                          this.getUserRelationship();
                         }else {
                             this.$Message.error(data.data.msg);
                         }
@@ -149,10 +166,17 @@
         this.$axios
           .get('api/user/userRelationship')
           .then(data => {
-              if (data.data.code == 200) {
-                console.log(data);
-              }else {
-                  this.$Message.error(data.data.msg);
+              if (data.data.code == 200 && data.data.data.isIdCard == 1) {
+                this.formShow = false;
+                this.idCard = data.data.data.idCard;
+              }
+              if (data.data.code == 200 && data.data.data.isTenant == 1) {
+                this.tenantShow = false;
+                this.isTenant = data.data.data.isTenant;
+              }
+              if (data.data.code == 200 && data.data.data.isVehicleOwner == 1) {
+                this.ownerShow = false;
+                this.isVehicleOwner = data.data.data.isVehicleOwner;
               }
           }).catch(() => {
               this.$Message.error('提交失败');
@@ -170,6 +194,7 @@
         this.$axios.post("/api/authentication/identityAuthentication", this.param, config)
         .then(data => {
           this.$Message.success(data.data.msg);
+          this.getUserRelationship();
 				})
 			}
     },
@@ -189,6 +214,10 @@
 .certificate {
   // width: 100%;
   // height: 80%;
+  .identity {
+    color: green;
+    margin-bottom: 10px;
+  }
   .tabs {
     // height: 80%;
     .form {
