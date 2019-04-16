@@ -27,7 +27,7 @@
           <div v-show="!tenantShow">
             <p class="identity">提交成功，等待审核中...</p>
           </div>
-          <el-form ref="form" :model="form" label-width="80px">
+          <el-form ref="form" v-show="tenantShow" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
             <!--elementui的上传图片的upload组件-->
             <!--
@@ -40,6 +40,7 @@
               -->
             <el-upload
               class="upload-demo"
+              :multiple="true"
               action=""
               :auto-upload=false
               :on-change="onchange"
@@ -60,10 +61,11 @@
           <div v-show="!ownerShow">
             <p class="identity">提交成功，等待审核中...</p>
           </div>
-          <el-form ref="form" :model="form" label-width="80px">
+          <el-form v-show="ownerShow" ref="form" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
             <el-upload
               class="upload-demo"
+              :multiple="true"
               action=""
               :auto-upload=false
               :on-change="onchange"
@@ -126,8 +128,11 @@
 				var windowURL = window.URL || window.webkitURL;
 				this.src=windowURL.createObjectURL(file.raw);
 				//重新写一个表单上传的方法
-				this.param = new FormData();
-				this.param.append('file', file.raw, file.name);
+        this.param = new FormData();
+        // this.param.append('file', file.raw, file.name);
+        for(var i = 0;i<filesList.length;i++) {
+          this.param.append('file', filesList[i].raw, filesList[i].name);
+        }
       },
       submitUpload() {
         this.$refs.upload.submit();
@@ -185,12 +190,14 @@
       },
       onSubmit(){
 				var purpose = this.form.purpose;
-				this.param.append('purpose', purpose);
+        this.param.append('purpose', purpose);
+        // this.param.append('file', purpose);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
-				};
+        };
+        console.log(typeof(this.param));
         this.$axios.post("/api/authentication/identityAuthentication", this.param, config)
         .then(data => {
           this.$Message.success(data.data.msg);

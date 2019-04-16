@@ -9,6 +9,7 @@
                     @on-select="selectMenu"
                     :active-name="activeName"
                     width="320px">
+                    <MenuItem name="/audit"><Icon type="md-card" />&nbsp;证件审核</MenuItem>
                     <Submenu name="enterprise">
                         <template slot="title">
                             <Icon type="ios-car" />

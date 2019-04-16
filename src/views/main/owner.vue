@@ -11,7 +11,7 @@
             <div>
                 <el-form :label-position="labelPosition" label-width="80px">
                     <el-form-item label="品牌">
-                          <el-select v-model="brandValue" placeholder="请选择品牌" @change="selectChange">
+                          <el-select v-model="brandValue" placeholder="请选择品牌" style="width:275px" @change="selectChange">
                             <el-option
                               v-for="item in brandOptions"
                               :key="item.value"
@@ -21,7 +21,7 @@
                           </el-select>
                     </el-form-item>
                     <el-form-item label="排量">
-                          <el-select v-model="displacementValue" placeholder="请选择排量" @change="selectChange">
+                          <el-select v-model="displacementValue" placeholder="请选择排量" style="width:275px" @change="selectChange">
                             <el-option
                               v-for="item in displacementOptions"
                               :key="item.value"

@@ -88,6 +88,14 @@ const router = new Router({
           component: resolve => require(['@/views/backstage/backmain'], resolve),
           children:[
             {
+              path: '/audit',
+              name: '证件审核',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/audit/audit'], resolve),
+            },
+            {
               path: '/addassessment',
               name: '录入车型',
               meta: {
