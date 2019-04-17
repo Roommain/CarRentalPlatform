@@ -1,6 +1,6 @@
 <template>
   <div class="audit">
-      <div class="box" v-for="(item, index) in data" :key="index">
+      <div class="box" v-show="auditShow" v-for="(item, index) in data" :key="index">
         <p class="user">用户：<span>{{item.telPhone}}</span> </p>
         <ul class="clearfix">
           <li>
@@ -16,15 +16,18 @@
           </li>
         </ul>
       </div>
+      <div v-show="!auditShow">
+        暂无待审核的数据
+      </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
       pass:'',
       data:[],
+      auditShow: false,
     }
   },
   created () {
@@ -35,7 +38,12 @@ export default {
       this.$axios
       .get('/api/authentication/getTenantPath')
       .then(data => {
-        this.data = data.data.data
+        this.data = data.data.data;
+        if (data.data.msg !== '暂无待审核的数据') {
+          this.auditShow = true;
+        }else {
+          this.auditShow = false;
+        }
       }).catch(() => {
         this.$Message.error('获取失败');
         return;

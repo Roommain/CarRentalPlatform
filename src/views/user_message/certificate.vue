@@ -24,8 +24,8 @@
         </el-tab-pane>
         <!-- 租客驾驶证 -->
         <el-tab-pane name="1" label="租客驾驶证">
-          <div v-show="!tenantShow">
-            <p class="identity">提交成功，等待审核中...</p>
+          <div v-show="textTenantShow">
+            <p class="identity">{{newStatus(isTenant)}}</p>
           </div>
           <el-form ref="form" v-show="tenantShow" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
@@ -58,8 +58,8 @@
         </el-tab-pane>
         <!-- 车主行驶证 -->
         <el-tab-pane name="2" label="车主行驶证">
-          <div v-show="!ownerShow">
-            <p class="identity">提交成功，等待审核中...</p>
+          <div v-show="textOwnerShow">
+            <p class="identity">{{newStatus(isVehicleOwner)}}</p>
           </div>
           <el-form v-show="ownerShow" ref="form" :model="form" label-width="80px">
             <label class="el-form-item__label" style="width: 80px;">上传图片</label>
@@ -93,6 +93,8 @@
           formShow: true,
           tenantShow: true,
           ownerShow: true,
+          textTenantShow: false,
+          textOwnerShow: false,
           idCard: '',
           isIdCard: 0,
           isTenant: 0,
@@ -121,6 +123,25 @@
     },
     created(){
         this.getUserRelationship();
+    },
+    computed:{
+        /**
+        * 封装进行状态修改的方法
+        * @param {Object} obj 当前渲染的对象
+        */
+        newStatus(){
+            return function(obj) {
+              if(obj == '1') {
+                return '提交成功，等待审核中...'
+              }else if (obj == '2') {
+                return '证件认证成功'
+              }else if (obj == '3') {
+                return '审核没通过，请重新提交证件'
+              }else {
+                return
+              }
+            };
+        }
     },
     methods: {
       onchange(file,filesList) {
@@ -171,17 +192,29 @@
         this.$axios
           .get('api/user/userRelationship')
           .then(data => {
-              if (data.data.code == 200 && data.data.data.isIdCard == 1) {
-                this.formShow = false;
-                this.idCard = data.data.data.idCard;
-              }
-              if (data.data.code == 200 && data.data.data.isTenant == 1) {
-                this.tenantShow = false;
-                this.isTenant = data.data.data.isTenant;
-              }
-              if (data.data.code == 200 && data.data.data.isVehicleOwner == 1) {
-                this.ownerShow = false;
-                this.isVehicleOwner = data.data.data.isVehicleOwner;
+              if (data.data.code == 200) {
+                if (data.data.data.isIdCard == 1) {
+                  this.formShow = false;
+                  this.idCard = data.data.data.idCard;
+                }
+                if (data.data.data.isTenant == 1 || data.data.data.isTenant == 2) {
+                  this.tenantShow = false;
+                  this.textTenantShow = true;
+                  this.isTenant = data.data.data.isTenant;
+                }else if (data.data.data.isTenant == 3) {
+                  this.textTenantShow = true;
+                  this.isTenant = data.data.data.isTenant;           
+                }
+                if (data.data.data.isVehicleOwner == 1 || data.data.data.isVehicleOwner == 2) {
+                  this.ownerShow = false;
+                  this.textOwnerShow = true;
+                  this.isVehicleOwner = data.data.data.isVehicleOwner;
+                }else if (data.data.data.isVehicleOwner == 3) {
+                  this.textOwnerShow = true;
+                  this.isVehicleOwner = data.data.data.isVehicleOwner;
+                }
+              }else {
+                return
               }
           }).catch(() => {
               this.$Message.error('提交失败');
@@ -191,7 +224,6 @@
       onSubmit(){
 				var purpose = this.form.purpose;
         this.param.append('purpose', purpose);
-        // this.param.append('file', purpose);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
@@ -219,22 +251,16 @@
 
 <style lang="less" scoped>
 .certificate {
-  // width: 100%;
-  // height: 80%;
   .identity {
     color: green;
     margin-bottom: 10px;
-  }
-  .tabs {
-    // height: 80%;
-    .form {
-      // text-align: center;
+    span {
+      color: red;
     }
   }
   .upload {
       margin-top: 20px;
   }
-
 }
 .user-message .user-view .user-main-view {
     padding: 22px 0 22px 0px;

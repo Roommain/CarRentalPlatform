@@ -133,6 +133,9 @@ import interlayer from '@/views/interlayer/interlayer'
             .user {
                 cursor: pointer;
             }
+            .user:hover {
+                color: green;
+            }
             .ivu-icon-md-person {
                 float: left;
                 height: 100%;

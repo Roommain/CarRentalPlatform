@@ -85,9 +85,6 @@ export default {
                                 this.userName = data.data.data.userName;
                                 this.$cookie.set('userName',this.userName);
                                 this.$cookie.set('isAdmin',data.data.data.isAdmin);
-                                // this.$cookie.set('isAdmin',data.data.data.isAdmin);
-                                // this.$cookie.set('token',this.token);
-                                // this.closeLogin();
                                 interlayer.$emit('active',this.userName);
                                 this.$router.push({name: '首页'});
                             }else {
@@ -101,15 +98,6 @@ export default {
                     this.$Message.error('账号输入有误');
                 }
             })
-        },
-        registerSubmit () {
-
-        },
-        findPassword () {
-
-        },
-        closeLogin () {
-
         },
         /**
          * 记住密码

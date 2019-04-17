@@ -13,6 +13,7 @@
                     <MenuItem name="/userinfo"><Icon type="md-contact" />&nbsp;我的信息</MenuItem>
                     <MenuItem name="/certificate"><Icon type="md-cloud-upload" />&nbsp;证件实名</MenuItem>
                     <MenuItem name="/changePassword"><Icon type="md-lock" />&nbsp;修改密码</MenuItem>
+                    <MenuItem name=""><Icon type="md-switch" />&nbsp;<span @click="logout">退出登录</span></MenuItem>
                 </Menu>
             </div>
         </div>
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+import interlayer from '@/views/interlayer/interlayer'
 export default {
     data() {
         return {
@@ -50,6 +52,23 @@ export default {
          */
         selectRouter() {
             this.activeName = this.$route.path;
+        },
+        logout () {
+            this.$axios
+            .post('/api/user/logout')
+            .then(data => {
+                if (data.data.code == 200) {
+                    this.$cookie.remove('userName');
+                    this.$cookie.remove('isAdmin');
+                    interlayer.$emit('active');
+                    this.$router.push({ name: '首页' });
+                }else {
+                    this.$Message.error(data.data.msg);
+                }
+            }).catch(() => {
+                this.$Message.error('获取失败');
+                return;
+            });
         }
     },
     watch: {
