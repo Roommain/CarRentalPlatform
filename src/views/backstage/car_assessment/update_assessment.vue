@@ -42,10 +42,10 @@ export default {
                 profit:'',
             },
             modal:false,
-            loading: false,//是否加载状态
+            loading: true,//是否加载状态
             tableHeight: '',//table高度
             pageData:[],//分页数据
-            pantectTotalSize: 200,//总数据
+            pantectTotalSize: 0,//总数据
             page:1,
             size:20,
             columns: [
@@ -97,9 +97,15 @@ export default {
             .then(data => {
                 this.loading = false;
                 if(data.data.code == 200){
-                    this.data = data.data.data || [];
-                    this.pantectTotalSize = data.data.data.length;
-                    this.paging(this.data,this.page,this.size);
+                    if (data.data.msg == '暂无相关数据') {
+                        this.data = data.data.data || [];
+                        this.pantectTotalSize = 0;
+                        this.paging(this.data,this.page,this.size);
+                    }else {
+                        this.data = data.data.data || [];
+                        this.pantectTotalSize = data.data.data.length;
+                        this.paging(this.data,this.page,this.size);
+                    }
                 }else {
                     this.$Message.error(data.data.msg);
                 }

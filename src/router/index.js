@@ -87,14 +87,32 @@ const router = new Router({
           name: '后台管理',
           component: resolve => require(['@/views/backstage/backmain'], resolve),
           children:[
+            //审核
             {
-              path: '/audit',
-              name: '证件审核',
+              path: '/drivinglicence',
+              name: '驾驶证审核',
               meta: {
                 permissions: true,
               },
               component: resolve => require(['@/views/backstage/audit/audit'], resolve),
             },
+            {
+              path: '/auditcar',
+              name: '行驶证审核',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/audit/auditcar'], resolve),
+            },
+            {
+              path: '/ownercaraudit',
+              name: '车主车辆审核',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/ownercaraudit/ownercaraudit'], resolve),
+            },
+            //车型管理
             {
               path: '/addassessment',
               name: '录入车型',
@@ -118,6 +136,31 @@ const router = new Router({
                 permissions: true,
               },
               component: resolve => require(['@/views/backstage/car_assessment/update_assessment'], resolve),
+            },
+            //租车管理
+            {
+              path: '/addcarrental',
+              name: '增加租车',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/carrental/add_carrental'], resolve),
+            },
+            {
+              path: '/updatecarrental',
+              name: '修改租车',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/carrental/update_carrental'], resolve),
+            },
+            {
+              path: '/deletecarrental',
+              name: '删除租车',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/carrental/delete_carrental'], resolve),
             },
           ]
         },

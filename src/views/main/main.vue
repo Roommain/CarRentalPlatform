@@ -9,7 +9,7 @@
                 <router-link tag="li" to="/home" active-class="active">&nbsp;&nbsp;首页</router-link>
                 <router-link tag="li" to="/carRental">&nbsp;&nbsp;我要租车</router-link>
                 <router-link tag="li" to="/owner">&nbsp;&nbsp;成为车主</router-link>
-                <router-link v-show="adminShow" tag="li" to="/audit">&nbsp;&nbsp;后台管理</router-link>
+                <router-link v-show="adminShow" tag="li" to="/ownercaraudit">&nbsp;&nbsp;后台管理</router-link>
             </nav>
             <div class="main-user-message">
                 <el-button v-show="loginShow" type="primary" @click="logins">登录/注册</el-button>

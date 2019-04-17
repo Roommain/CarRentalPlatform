@@ -33,7 +33,7 @@ export default {
   methods: {
     getAudit() {
       this.$axios
-      .get('/api/authentication/getTenantPath')
+      .get('/api/authentication/getVehicleOwnerPath')
       .then(data => {
         this.data = data.data.data
       }).catch(() => {
@@ -44,7 +44,7 @@ export default {
     onSubmit (user,num) {
       const params = {
           telPhone : user,
-          purpose : 'tenant',
+          purpose : 'vehicle-owner',
           result : num,
       };
       this.$axios

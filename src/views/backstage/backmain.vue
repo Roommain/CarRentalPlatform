@@ -9,8 +9,16 @@
                     @on-select="selectMenu"
                     :active-name="activeName"
                     width="320px">
-                    <MenuItem name="/audit"><Icon type="md-card" />&nbsp;证件审核</MenuItem>
-                    <Submenu name="enterprise">
+                    <MenuItem name="/ownercaraudit"><Icon type="md-card" />&nbsp;车主车辆审核</MenuItem>
+                    <Submenu name="audit">
+                        <template slot="title">
+                            <Icon type="md-card" />
+                            证件审核
+                        </template>
+                        <MenuItem name="/drivinglicence">驾驶证</MenuItem>
+                        <MenuItem name="/auditcar">行驶证</MenuItem>
+                    </Submenu>
+                    <Submenu name="assessment">
                         <template slot="title">
                             <Icon type="ios-car" />
                             车辆估值
@@ -19,14 +27,22 @@
                         <MenuItem name="/updateassessment">修改车型</MenuItem>
                         <MenuItem name="/deleteassessment">删除车型</MenuItem>
                     </Submenu>
-                    <Submenu name="system">
+                    <Submenu name="">
                         <template slot="title">
                             <Icon type="md-car" />
                             租车管理
                         </template>
-                        <MenuItem name="">增加租车信息</MenuItem>
-                        <MenuItem name="">修改租车信息</MenuItem>
-                        <MenuItem name="">删除租车信息</MenuItem>
+                        <MenuItem name="/addcarrental">增加租车信息</MenuItem>
+                        <MenuItem name="/updatecarrental">修改租车信息</MenuItem>
+                        <MenuItem name="/deletecarrental">删除租车信息</MenuItem>
+                    </Submenu>
+                    <Submenu name="">
+                        <template slot="title">
+                            <Icon type="md-car" />
+                            订单管理
+                        </template>
+                        <MenuItem name="">修改订单</MenuItem>
+                        <MenuItem name="">查询订单</MenuItem>
                     </Submenu>
                 </Menu>
             </div>
@@ -44,7 +60,7 @@
 export default {
     data() {
         return {
-            activeName:'/userinfo'
+            activeName:'/ownercaraudit'
         };
     },
     created() {
