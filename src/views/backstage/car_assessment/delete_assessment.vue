@@ -65,8 +65,6 @@ export default {
         }
     },
     created() {
-        var day = new Date();
-        this.datevalue = day;
         this.getFlightData();  
     },
     methods:{

@@ -27,8 +27,8 @@
           <div v-show="textTenantShow">
             <p class="identity">{{newStatus(isTenant)}}</p>
           </div>
-          <el-form ref="form" v-show="tenantShow" :model="form" label-width="80px">
-            <label class="el-form-item__label" style="width: 80px;">上传图片</label>
+          <el-form ref="form" v-show="tenantShow" :model="form" label-width="175px">
+            <label class="el-form-item__label" style="width: 150px;">租客上传驾驶证</label>
             <!--elementui的上传图片的upload组件-->
             <!--
               :auto-upload=false  // 取消自动上传
@@ -38,7 +38,7 @@
               drag // 设置这个让可以把图片拖进来上传
               action="" // 这里暂时不设置上传地址，因为我们是要拦截在form中上传
               -->
-            <el-upload
+            <!-- <el-upload
               class="upload-demo"
               :multiple="true"
               action=""
@@ -50,6 +50,14 @@
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload> -->
+            <el-upload
+              :multiple="true"
+              action=""
+              :auto-upload=false
+              :on-change="onchange"
+              list-type="picture-card">
+              <i class="el-icon-plus"></i>
             </el-upload>
             <el-form-item style="padding-top:20px;">
               <el-button type="primary" @click="onSubmit">提交认证</el-button>
@@ -61,9 +69,9 @@
           <div v-show="textOwnerShow">
             <p class="identity">{{newStatus(isVehicleOwner)}}</p>
           </div>
-          <el-form v-show="ownerShow" ref="form" :model="form" label-width="80px">
-            <label class="el-form-item__label" style="width: 80px;">上传图片</label>
-            <el-upload
+          <el-form v-show="ownerShow" ref="form" :model="form" label-width="175px">
+            <label class="el-form-item__label" style="width: 150px;">车主上传行驶证</label>
+            <!-- <el-upload
               class="upload-demo"
               :multiple="true"
               action=""
@@ -75,6 +83,14 @@
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload> -->
+            <el-upload
+              :multiple="true"
+              action=""
+              :auto-upload=false
+              :on-change="onchange"
+              list-type="picture-card">
+              <i class="el-icon-plus"></i>
             </el-upload>
             <el-form-item style="padding-top:20px;">
               <el-button type="primary" @click="onSubmit">提交认证</el-button>
