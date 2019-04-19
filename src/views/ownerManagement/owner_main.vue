@@ -2,48 +2,16 @@
     <div class="user-message">
         <div class="user-message-header utils-menu-header-style">
             <h2 class="user-header">
-                <span>管理中心</span>
+                <span>车主中心</span>
             </h2>
             <div class="user-menu-bar">
                 <Menu
                     @on-select="selectMenu"
                     :active-name="activeName"
-                    width="320px">
-                    <MenuItem name="/ownercaraudit"><Icon type="md-card" />&nbsp;车主车辆审核</MenuItem>
-                    <Submenu name="audit">
-                        <template slot="title">
-                            <Icon type="md-card" />
-                            证件审核
-                        </template>
-                        <MenuItem name="/drivinglicence">驾驶证</MenuItem>
-                        <MenuItem name="/auditcar">行驶证</MenuItem>
-                    </Submenu>
-                    <Submenu name="assessment">
-                        <template slot="title">
-                            <Icon type="ios-car" />
-                            车辆估值
-                        </template>
-                        <MenuItem name="/addassessment">录入车型</MenuItem>
-                        <MenuItem name="/updateassessment">修改车型</MenuItem>
-                        <MenuItem name="/deleteassessment">删除车型</MenuItem>
-                    </Submenu>
-                    <Submenu name="carrental">
-                        <template slot="title">
-                            <Icon type="md-car" />
-                            租车管理
-                        </template>
-                        <MenuItem name="/addcarrental">增加租车信息</MenuItem>
-                        <MenuItem name="/updatecarrental">修改租车信息</MenuItem>
-                        <MenuItem name="/deletecarrental">删除租车信息</MenuItem>
-                    </Submenu>
-                    <Submenu name="order">
-                        <template slot="title">
-                            <Icon type="ios-list-box" />
-                            订单管理
-                        </template>
-                        <MenuItem name="">修改订单</MenuItem>
-                        <MenuItem name="">查询订单</MenuItem>
-                    </Submenu>
+                    width="320px"
+                >
+                    <MenuItem name="/addownermanag"><Icon type="ios-car" />&nbsp;增加车辆</MenuItem>
+                    <MenuItem name="/statemanagement"><Icon type="ios-card-outline" />&nbsp;车辆状态</MenuItem>
                 </Menu>
             </div>
         </div>
@@ -57,10 +25,11 @@
 </template>
 
 <script>
+import interlayer from '@/views/interlayer/interlayer'
 export default {
     data() {
         return {
-            activeName:'/ownercaraudit'
+            activeName:'/addownermanag'
         };
     },
     created() {
@@ -81,7 +50,7 @@ export default {
          */
         selectRouter() {
             this.activeName = this.$route.path;
-        }
+        },
     },
     watch: {
         $route() {
@@ -138,7 +107,6 @@ export default {
         }
     }
 }
-.ivu-menu-vertical .ivu-menu-item:hover, .ivu-menu-vertical .ivu-menu-submenu-title:hover，
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {
     background-color: #5ab756;
 }

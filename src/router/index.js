@@ -24,7 +24,7 @@ const router = new Router({
         },
         {
             path: '/owner',
-            name: '我是车主',
+            name: '成为车主',
             component: resolve => require(['@/views/main/owner'], resolve),
         },
         {
@@ -161,6 +161,29 @@ const router = new Router({
                 permissions: true,
               },
               component: resolve => require(['@/views/backstage/carrental/delete_carrental'], resolve),
+            },
+          ]
+        },
+        {
+          path: '/ownermanagement',
+          name: '车主管理',
+          component: resolve => require(['@/views/ownerManagement/owner_main'], resolve),
+          children:[
+            {
+              path: '/addownermanag',
+              name: '增加车辆',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/ownerManagement/add_ownermanag'], resolve),
+            },
+            {
+              path: '/statemanagement',
+              name: '车辆状态',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/ownerManagement/state_management'], resolve),
             },
           ]
         },

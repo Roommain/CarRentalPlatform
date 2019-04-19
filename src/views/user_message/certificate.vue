@@ -1,7 +1,7 @@
 <template>
     <div class="certificate">
-      <el-tabs type="border-card" class="tabs" v-model="activeName">
-        <el-tab-pane name="0" label="身份证">
+      <Tabs type="card" class="tabs" v-model="activeName">
+        <TabPane name="0" label="身份证">
           <Form class="form" ref="formInline" v-show="formShow" :model="formInline" :rules="ruleInline" inline>
               <FormItem prop="name">
                   <Input type="text" size="large" v-model="formInline.name" placeholder="姓名" style="width: 400px">
@@ -21,9 +21,9 @@
             <p class="identity">身份证认证成功</p>
             验证的身份证为：{{idCard}}
           </div>
-        </el-tab-pane>
+        </TabPane>
         <!-- 租客驾驶证 -->
-        <el-tab-pane name="1" label="租客驾驶证">
+        <TabPane name="1" label="租客驾驶证">
           <div v-show="textTenantShow">
             <p class="identity">{{newStatus(isTenant)}}</p>
           </div>
@@ -63,9 +63,9 @@
               <el-button type="primary" @click="onSubmit">提交认证</el-button>
             </el-form-item>
           </el-form>
-        </el-tab-pane>
+        </TabPane>
         <!-- 车主行驶证 -->
-        <el-tab-pane name="2" label="车主行驶证">
+        <TabPane name="2" label="车主行驶证">
           <div v-show="textOwnerShow">
             <p class="identity">{{newStatus(isVehicleOwner)}}</p>
           </div>
@@ -96,8 +96,8 @@
               <el-button type="primary" @click="onSubmit">提交认证</el-button>
             </el-form-item>
           </el-form>
-        </el-tab-pane>
-      </el-tabs>
+        </TabPane>
+      </Tabs>
     </div>
 </template>/>
 

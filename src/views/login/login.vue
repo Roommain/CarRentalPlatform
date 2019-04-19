@@ -85,6 +85,8 @@ export default {
                                 this.userName = data.data.data.userName;
                                 this.$cookie.set('userName',this.userName);
                                 this.$cookie.set('isAdmin',data.data.data.isAdmin);
+                                this.$cookie.set('isTenant',data.data.data.isTenant);
+                                this.$cookie.set('isVehicleOwner',data.data.data.isVehicleOwner);
                                 interlayer.$emit('active',this.userName);
                                 this.$router.push({name: '首页'});
                             }else {

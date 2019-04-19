@@ -228,7 +228,7 @@ export default {
                         'Content-Type': 'multipart/form-data'
                         }
                     };
-                    this.$axios.post("/api/car/insertOne", this.param, config)
+                    this.$axios.post("/api/authentication/insertCarInfoPreprocess", this.param, config)
                     .then(data => {
                         if (data.data.code == '200') {
                             this.resetForm('carrentalData');
