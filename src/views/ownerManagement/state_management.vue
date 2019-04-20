@@ -79,6 +79,8 @@
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.getObjByCarOwnerData = data.data.data;
                         this.nodataimgShow = true;
+                    }else {
+                        this.nodataimgShow = false;
                     }
                 });
             },
@@ -89,6 +91,8 @@
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.getCarInfoData = data.data.data;
                         this.passimgShow = true;
+                    }else {
+                        this.passimgShow = false;
                     }
                 });
             },
@@ -99,6 +103,8 @@
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.getFailCarInfoData = data.data.data;
                         this.nopassimgShow = true;
+                    }else {
+                        this.nopassimgShow = false;
                     }
                 });
             },
@@ -112,6 +118,9 @@
                     .then(data => {
                         if (data.data.code == 200) {
                             this.$Message.success(data.data.msg);
+                            this.getObjByCarOwner();
+                            this.getCarInfo();
+                            this.getFailCarInfo();
                         }else {
                             this.$Message.error('删除失败');
                         }
