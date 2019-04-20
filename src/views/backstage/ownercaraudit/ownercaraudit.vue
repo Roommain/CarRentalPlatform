@@ -13,27 +13,24 @@
             <div class="clearfix">
                 <el-form ref="carData" class="modal-form" :model="carData" label-width="80px">
                     <el-form-item label="车牌号:" prop="licensePlateNumber">
-                        <!-- <el-input v-model="carData.licensePlateNumber" disabled style="width:300px"></el-input> -->
                         <p>{{carData.licensePlateNumber}}</p>
                     </el-form-item>
                     <el-form-item label="城市:" prop="city">
                         <p>{{carData.city}}</p>
-                        <!-- <el-input v-model="carData.city" style="width:300px"></el-input> -->
                     </el-form-item>
                     <el-form-item label="车龄:" prop="carYear">
-                        <!-- <el-input v-model="carData.carYear" style="width:300px"></el-input> -->
                         <p>{{carData.carYear}}</p>
                     </el-form-item>
                     <el-form-item label="用油类型:" prop="gasolineType">
-                        <!-- <el-input v-model="carData.gasolineType" style="width:300px"></el-input> -->
                         <p>{{carData.gasolineType}}</p>
                     </el-form-item>
+                    <el-form-item label="核载人数:" prop="chairNumber">
+                        <p>{{carData.chairNumber}}</p>
+                    </el-form-item>
                     <el-form-item label="车辆描述:" prop="vehicleDescription">
-                        <!-- <el-input v-model="carData.vehicleDescription" style="width:300px"></el-input> -->
                         <p>{{carData.vehicleDescription}}</p>
                     </el-form-item>
                     <el-form-item label="备注:" prop="vehicleRemark">
-                        <!-- <el-input v-model="carData.vehicleRemark" style="width:300px"></el-input> -->
                         <p>{{carData.vehicleRemark}}</p>
                     </el-form-item>
                     <el-form-item>
@@ -41,15 +38,11 @@
                         <el-button type="primary" @click="submitUpdate('0')" style="width:120px">不通过</el-button>
                     </el-form-item>
                 </el-form>
-                <div>
-                  <p>{{carData.licensePlateNumber}}</p>
-                </div>
                 <div class="modal-img">
                     <img :src=carData.vehiclePictures[0] alt="">
                     <img :src=carData.vehiclePictures[1] alt="">
                 </div>
             </div>
-
         </Modal>
     </div>
 </template>
@@ -103,6 +96,12 @@ export default {
         {
             title: '车牌号',
             key: 'licensePlateNumber',
+            align: 'center',
+            tooltip:true,
+        },
+        {
+            title: '核载人数',
+            key: 'chairNumber',
             align: 'center',
             tooltip:true,
         },

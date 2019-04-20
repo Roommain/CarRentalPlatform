@@ -231,7 +231,7 @@ export default {
                     this.$axios.post("/api/authentication/insertCarInfoPreprocess", this.param, config)
                     .then(data => {
                         if (data.data.code == '200') {
-                            this.resetForm('carrentalData');
+                            // this.resetForm('carrentalData');
                             this.$refs.upload.clearFiles();
                             this.doUpload = false;
                             this.param = {};

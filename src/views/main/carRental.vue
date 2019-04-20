@@ -106,7 +106,7 @@ export default {
     li {
       float: left;
       list-style: none;
-      margin-right: 10px;
+      margin-right: 1%;
       width: 24%;
       height: 290px;
       p{
