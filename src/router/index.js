@@ -33,6 +33,11 @@ const router = new Router({
             component: resolve => require(['@/views/main/carRental'], resolve),
         },
         {
+          path: '/carRentalParticulars',
+          name: '租车详情',
+          component: resolve => require(['@/views/main/carRentalParticulars'], resolve),
+        },
+        {
             path: '/login',
             name: '登录',
             component: resolve => require(['@/views/login/login'], resolve),

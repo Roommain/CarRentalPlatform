@@ -4,7 +4,7 @@
         <ul class="img-box clearfix" v-show="nodataimgShow">
             <li v-for="(item,index) in getObjByCarOwnerData" :key="index">
                 <!-- <p><img :src=item.vehiclePictures[0] alt=""></p> -->
-                <el-carousel height="170px" :autoplay="false">
+                <el-carousel height="170px">
                     <el-carousel-item v-for="imgs in item.vehiclePictures" :key="imgs">
                         <img :src=imgs alt="">
                     </el-carousel-item>
@@ -30,7 +30,7 @@
         <TabPane label="未通过审核">
         <ul class="img-box clearfix" v-show="nopassimgShow">
             <li v-for="(item,index) in getFailCarInfoData" :key="index">
-                <el-carousel height="170px" :autoplay="false">
+                <el-carousel height="170px">
                     <el-carousel-item v-for="imgs in item.vehiclePictures" :key="imgs">
                         <img :src=imgs alt="">
                     </el-carousel-item>
@@ -149,7 +149,7 @@
         width: 24%;
         height: 240px;
         p{
-        margin-bottom: 10px;
+            margin-bottom: 10px;
         img {
             width: 100%;
             height: 100%;

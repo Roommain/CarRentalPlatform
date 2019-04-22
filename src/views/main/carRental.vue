@@ -4,32 +4,28 @@
         <div slot="header" class="clearfix">
           <p class="car-p">
             <span>热门:</span>
-            <el-button type="success" size="mini" plain>不限</el-button>
-            <el-button type="success" size="mini" plain>宝马</el-button>
-            <el-button type="success" size="mini" plain>奔驰</el-button>
-            <el-button type="success" size="mini" plain>福特</el-button>
-            <el-button type="success" size="mini" plain>奥迪</el-button>
-            <el-button type="success" size="mini" plain>大众</el-button>
-            <el-button type="success" size="mini" plain>别克</el-button> 
-            <el-button type="success" size="mini" plain>丰田</el-button>
-            <!-- <el-button type="success" size="mini" plain>本田</el-button> -->
-            <el-button type="success" size="mini" plain>雪弗莱</el-button>
-            <el-button type="success" size="mini" plain>保时捷</el-button>         
+            <el-button type="success" size="mini" plain @click="getCarAll()">不限</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('宝马')">宝马</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('奔驰')">奔驰</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('福特')">福特</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('奥迪')">奥迪</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('大众')">大众</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('别克')">别克</el-button> 
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('丰田')">丰田</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('雪弗莱')">雪弗莱</el-button>
+            <el-button type="success" size="mini" plain @click="getCarVehicleType('保时捷')">保时捷</el-button>         
           </p>
         </div>
-        <ul class="img-box clearfix">
-          <li v-for="(item,index) in imgData" :key="index">
-            <p><img :src=item.src alt="" @click="particulars()"></p>
-            <p class="car-type">{{item.type}}</p>
-            <p class="car-price"><span>{{item.price}}</span>元/天</p>
+        <ul class="img-box clearfix" v-show="carRentalShow">
+          <li v-for="(item,index) in pageData" :key="index">
+            <p><img :src=item.vehiclePictures[0] alt="" @click="particulars(item.licensePlateNumber)"></p>
+            <p class="car-type">{{item.vehicleType}} {{item.licensePlateNumber}} {{newAutoOrHand(item.autoOrHand)}}</p>
+            <p class="car-price"><span>{{item.rented}}</span>元/天</p>
           </li>
         </ul>
+        <div class="nodata-img" v-show="!carRentalShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
         <div class="page">
-          <el-pagination
-            small
-            layout="prev, pager, next"
-            :total="80">
-          </el-pagination>         
+          <Page :total="pantectTotalSize" :current=page :page-size="size" @on-change="changePage"/>      
         </div>
       </el-card>
       <Footer/>
@@ -46,34 +42,99 @@ export default {
   },
   data() {
     return {
-        imgData:[
-            {src:'../../../static/img/car1.01eb86f8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car2.4286778f.png',type:'本田 CR-V 2.4L 自动挡',price:'300'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'400'},    
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'500'},
-            {src:'../../../static/img/car4.91dccff8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car1.01eb86f8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car2.4286778f.png',type:'本田 CR-V 2.4L 自动挡',price:'300'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'400'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'500'},
-            {src:'../../../static/img/car4.91dccff8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car1.01eb86f8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car2.4286778f.png',type:'本田 CR-V 2.4L 自动挡',price:'300'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'400'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'500'},
-            {src:'../../../static/img/car4.91dccff8.png',type:'本田 CR-V 2.4L 自动挡',price:'600'},
-            {src:'../../../static/img/car4.91dccff8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car1.01eb86f8.png',type:'本田 CR-V 2.4L 自动挡',price:'200'},
-            {src:'../../../static/img/car2.4286778f.png',type:'本田 CR-V 2.4L 自动挡',price:'300'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'400'},
-            {src:'../../../static/img/car3.b2f7e8e6.png',type:'本田 CR-V 2.4L 自动挡',price:'500'},
-        ]
+        carRentalShow:true,
+        pantectTotalSize:0,
+        page:1,
+        size:20,
+        pageData:[],
+        imgData:[],
     }
   },
+  created() {
+    this.getCarAll();
+  },
+  computed: {
+      /**
+      * 封装进行状态修改的方法
+      * @param {Object} obj 当前渲染的对象
+      */
+      newAutoOrHand(){
+          return function(obj) {
+              if(obj == 0){
+                  return '手动挡';
+              }
+                else if (obj == 1) {
+                  return '自动挡';
+              }
+          };
+      },
+  },
   methods: {
-    particulars () {
-      this.$Message.warning('暂无信息');
-    }
+    particulars (licensePlateNumber) {
+      // this.$Message.warning(licensePlateNumber);
+      this.$router.push({
+        name: '租车详情',
+        params: {
+            licensePlateNumber: licensePlateNumber
+        }
+      });
+    },
+    getCarAll () {
+      this.page = 1;
+      this.$axios.get('api/car/queryAllCarAndRented')
+      .then(data => {
+          if(data.data.code == 200){
+            this.imgData = data.data.data || [];
+            if (data.data.msg == '暂无相关数据') {
+              this.carRentalShow = false;
+              this.pantectTotalSize = 0;
+              this.paging(this.imgData,this.page,this.size);
+            }else {
+              this.carRentalShow = true;
+              this.pantectTotalSize = data.data.data.length;
+              this.paging(this.imgData,this.page,this.size);
+            }   
+          }else {
+              this.$Message.error(data.data.msg);
+          }
+      }); 
+    },
+    getCarVehicleType (vehicleType) {
+      this.page = 1;
+      const params = {
+          vehicleType : vehicleType,
+      };
+      this.$axios
+      .post('/api/car/queryAllCarByType',params)
+      .then(data => {
+        if (data.data.code == 200) {
+            this.imgData = data.data.data || [];
+          if (data.data.msg == '暂无该类型车辆相关数据') {
+            this.$Message.warning(data.data.msg);
+            this.carRentalShow = false;
+            this.pantectTotalSize = 0;
+            this.paging(this.imgData,this.page,this.size);
+          }else {
+            this.carRentalShow = true;
+            this.pantectTotalSize = data.data.data.length;
+            this.paging(this.imgData,this.page,this.size);
+          }   
+        }else {
+          this.$Message.error(data.data.msg);
+        }
+      });
+    },
+    // 控制表分页
+    paging (number,page,size) {
+        var startIndex = (page-1) * size;
+        var endIndex = page * size;
+        this.pageData = number.slice(startIndex,endIndex);
+    },
+    // 改变page
+    changePage (val) {
+        this.page = val;
+        this.paging (this.imgData,this.page,this.size);
+    },
   },
 }
 </script>
@@ -110,17 +171,17 @@ export default {
       width: 24%;
       height: 290px;
       p{
-        margin-bottom: 10px;
+          margin-bottom: 10px;
         img {
           width: 100%;
-          height: 100%;
+          height: 200px;
           cursor: pointer;
         }
       }
     }
     .car-type {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 14px;
+      // font-weight: 700;
     }
     .car-price {
       color: red;
@@ -133,5 +194,11 @@ export default {
   .page {
     text-align: center;
   }
+}
+.nodata-img {
+    width: 300px;
+    img {
+        width: 300px;
+    }
 }
 </style>
