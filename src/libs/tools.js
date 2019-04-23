@@ -113,7 +113,7 @@ export const getFullDate = (timeStamp, startType) => {
     const minutes = getHandledValue(d.getMinutes());
     const second = getHandledValue(d.getSeconds());
     let resStr = '';
-    if (startType === 'year') resStr = year + '-' + month + '-' + date;
+    if (startType === 'year') resStr = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + second;
     else resStr = month + '-' + date + ' ' + hours + ':' + minutes;
     return resStr;
 }; 

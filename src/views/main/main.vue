@@ -7,6 +7,7 @@
             </div>
             <nav class="main-nav">
                 <router-link tag="li" to="/home" active-class="active">&nbsp;&nbsp;首页</router-link>
+                <router-link tag="li" to="/collect">&nbsp;&nbsp;收藏</router-link>
                 <router-link tag="li" to="/carRental">&nbsp;&nbsp;我要租车</router-link>
                 <router-link tag="li" to="/owner">&nbsp;&nbsp;成为车主</router-link>
                 <router-link tag="li" to="/addownermanag">&nbsp;&nbsp;车主管理</router-link>
@@ -119,7 +120,7 @@ import interlayer from '@/views/interlayer/interlayer'
                 // color: rgba(209, 209, 209, 1);
                 float: left;
                 font-size: 14px;
-                width: 130px;
+                width: 115px;
                 cursor: pointer;
             }
             // > li:hover {

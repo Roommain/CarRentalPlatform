@@ -13,6 +13,8 @@
                     <MenuItem name="/userinfo"><Icon type="md-contact" />&nbsp;我的信息</MenuItem>
                     <MenuItem name="/certificate"><Icon type="md-cloud-upload" />&nbsp;证件实名</MenuItem>
                     <MenuItem name="/changePassword"><Icon type="md-lock" />&nbsp;修改密码</MenuItem>
+                    <MenuItem name="/orderInformation" v-show="orderInformationShow"><Icon type="md-list-box" />&nbsp;租客订单</MenuItem>
+                    <MenuItem name="/ownerOrderInformation" v-show="ownerOrderInformation"><Icon type="md-list-box" />&nbsp;车主订单</MenuItem>
                     <MenuItem name=""><Icon type="md-switch" />&nbsp;<span @click="logout">退出登录</span></MenuItem>
                 </Menu>
             </div>
@@ -31,11 +33,16 @@ import interlayer from '@/views/interlayer/interlayer'
 export default {
     data() {
         return {
-            activeName:'/userinfo'
+            activeName:'/userinfo',
+            isTenant:'',
+            isVehicleOwner:'',
+            orderInformationShow:false,
+            ownerOrderInformation:false,
         };
     },
     created() {
         this.selectRouter();
+        this.getStatus();
     },
     methods: {
         /**
@@ -60,6 +67,8 @@ export default {
                 if (data.data.code == 200) {
                     this.$cookie.remove('userName');
                     this.$cookie.remove('isAdmin');
+                    this.$cookie.remove('isTenant');
+                    this.$cookie.remove('isVehicleOwner');
                     interlayer.$emit('active');
                     this.$router.push({ name: '首页' });
                 }else {
@@ -69,6 +78,20 @@ export default {
                 this.$Message.error('获取失败');
                 return;
             });
+        },
+        getStatus () {
+            this.isTenant = this.$cookie.get('isTenant') || '';
+            this.isVehicleOwner = this.$cookie.get('isVehicleOwner') || '';
+            if(this.isTenant == '2'){
+                this.orderInformationShow = true;
+            }else {
+                this.orderInformationShow = false;
+            }
+            if(this.isVehicleOwner == '2'){
+                this.ownerOrderInformation = true;
+            }else {
+                this.ownerOrderInformation = false;
+            }
         }
     },
     watch: {

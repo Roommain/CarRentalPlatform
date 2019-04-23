@@ -160,7 +160,7 @@ export default {
             this.loading = false;
             if(data.data.code == 200){
               console.log(data);
-              if (data.data.msg == '暂无待审核的数据') {
+              if (data.data.msg == '暂无相关数据') {
                   this.data = data.data.data || [];
                   this.pantectTotalSize = 0;
                   this.paging(this.data,this.page,this.size);
