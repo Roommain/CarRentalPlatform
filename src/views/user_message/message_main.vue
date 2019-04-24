@@ -13,6 +13,7 @@
                     <MenuItem name="/userinfo"><Icon type="md-contact" />&nbsp;我的信息</MenuItem>
                     <MenuItem name="/certificate"><Icon type="md-cloud-upload" />&nbsp;证件实名</MenuItem>
                     <MenuItem name="/changePassword"><Icon type="md-lock" />&nbsp;修改密码</MenuItem>
+                    <MenuItem name="/balanceEnquiry"><Icon type="logo-yen" />&nbsp;余额查询</MenuItem>
                     <MenuItem name="/orderInformation" v-show="orderInformationShow"><Icon type="md-list-box" />&nbsp;租客订单</MenuItem>
                     <MenuItem name="/ownerOrderInformation" v-show="ownerOrderInformation"><Icon type="md-list-box" />&nbsp;车主订单</MenuItem>
                     <MenuItem name=""><Icon type="md-switch" />&nbsp;<span @click="logout">退出登录</span></MenuItem>

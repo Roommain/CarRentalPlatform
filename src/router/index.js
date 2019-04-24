@@ -86,6 +86,14 @@ const router = new Router({
               component: resolve => require(['@/views/user_message/userinfo'], resolve),
             },
             {
+              path: '/balanceEnquiry',
+              name: '余额查询',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/user_message/balanceEnquiry'], resolve),
+            },
+            {
               path: '/orderInformation',
               name: '租客订单',
               meta: {
@@ -190,6 +198,15 @@ const router = new Router({
                 permissions: true,
               },
               component: resolve => require(['@/views/backstage/carrental/delete_carrental'], resolve),
+            },
+            //订单管理
+            {
+              path: '/queryOrder',
+              name: '订单查询',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/order/queryOrder'], resolve),
             },
           ]
         },

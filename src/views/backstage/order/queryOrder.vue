@@ -11,7 +11,7 @@
                         <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
                     </li>
                 </ul>
-                <div class="nodata-img" v-show="!allShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
+                <div class="nodata-img" v-show="!allShow"><img src="../../../../static/img/timg.jpg" alt=""> </div>
             </TabPane>
             <TabPane label="已完成">
                 <ul v-show="accomplishShow">
@@ -23,7 +23,7 @@
                         <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
                     </li>
                 </ul>
-                <div class="nodata-img" v-show="!accomplishShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
+                <div class="nodata-img" v-show="!accomplishShow"><img src="../../../../static/img/timg.jpg" alt=""> </div>
             </TabPane>
             <TabPane label="进行中">
                 <ul v-show="underwayShow">
@@ -32,13 +32,10 @@
                         <p class="order-id">订单号： {{item.orderId}}</p>
                         <p class="time">{{item.startTime}} 至 {{item.endTime}}</p>
                         <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                        <p class="money clearfix">消费金额￥： <span>{{item.rentalMoney}}</span> 元 
-                            <el-button class="button" @click="cancel(item.orderId)" type="danger" size="mini">取消订单</el-button>
-                            <el-button class="button" @click="renew(item.orderId)" type="success" size="mini">我要续费</el-button>
-                        </p>
+                        <p class="money clearfix">消费金额￥： <span>{{item.rentalMoney}}</span> 元 </p>
                     </li>
                 </ul>
-                <div class="nodata-img" v-show="!underwayShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
+                <div class="nodata-img" v-show="!underwayShow"><img src="../../../../static/img/timg.jpg" alt=""> </div>
             </TabPane>
             <TabPane label="待还车">
                 <ul v-show="awaitShow">
@@ -47,12 +44,10 @@
                         <p class="order-id">订单号： {{item.orderId}}</p>
                         <p class="time">{{item.startTime}} 至 {{item.endTime}}</p>
                         <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                        <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元
-                            <el-button class="button" @click="renew(item.orderId)" type="success" size="mini">我要续费</el-button>
-                        </p>
+                        <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
                     </li>
                 </ul>
-                <div class="nodata-img" v-show="!awaitShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
+                <div class="nodata-img" v-show="!awaitShow"><img src="../../../../static/img/timg.jpg" alt=""> </div>
             </TabPane>
             <TabPane label="已取消">
                 <ul v-show="cancelShow">
@@ -64,28 +59,9 @@
                         <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
                     </li>
                 </ul>
-                <div class="nodata-img" v-show="!cancelShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
+                <div class="nodata-img" v-show="!cancelShow"><img src="../../../../static/img/timg.jpg" alt=""> </div>
             </TabPane>
         </Tabs>
-        <Modal
-            v-model="modal"
-            title="续约订单"
-            width=450
-            :draggable="true"
-            :footer-hide="true">
-            <p class="order-renew">确认续费订单号：<span>{{orderId}}</span></p>
-            <div class="block">
-                续约到：
-                <el-date-picker
-                v-model="timeValue"
-                type="datetime"
-                placeholder="选择日期时间">
-                </el-date-picker>
-            </div>
-            <div class="affirm">
-                <el-button type="success" round @click="carRentalOrder">提交订单</el-button>
-            </div>
-        </Modal>
     </div>
 </template>
 <script>
@@ -120,9 +96,9 @@
             //获取所有数据
             getUserOrder () {
                 var params = {
-                    tenantOrOwner: 0,
+                    type:'',
                 }
-                this.$axios.post('api/order/queryUserOrder',params)
+                this.$axios.post('api/order/queryAllOrder',params)
                 .then(data => {
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.allData = data.data.data;
@@ -136,9 +112,8 @@
             getAccomplishOrder(){
                 var params = {
                     type:2,
-                    tenantOrOwner: 0,
                 }
-                this.$axios.post('api/order/queryUserOrder',params)
+                this.$axios.post('api/order/queryAllOrder',params)
                 .then(data => {
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.accomplishData = data.data.data;
@@ -152,9 +127,8 @@
             getAwaitOrder(){
                 var params = {
                     type:1,
-                    tenantOrOwner: 0,
                 }
-                this.$axios.post('api/order/queryUserOrder',params)
+                this.$axios.post('api/order/queryAllOrder',params)
                 .then(data => {
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.awaitData = data.data.data;
@@ -168,9 +142,8 @@
             getUnderwayOrder(){
                 var params = {
                     type:0,
-                    tenantOrOwner: 0,
                 }
-                this.$axios.post('api/order/queryUserOrder',params)
+                this.$axios.post('api/order/queryAllOrder',params)
                 .then(data => {
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.underwayData = data.data.data;
@@ -184,9 +157,8 @@
             getCancelOrder(){
                 var params = {
                     type:3,
-                    tenantOrOwner: 0,
                 }
-                this.$axios.post('api/order/queryUserOrder',params)
+                this.$axios.post('api/order/queryAllOrder',params)
                 .then(data => {
                     if(data.data.code == 200 && data.data.msg !== '暂无相关数据'){
                         this.cancelData = data.data.data;
@@ -196,43 +168,6 @@
                     }
                 });
             },
-            renew (orderId) {
-                this.orderId = orderId;
-                this.modal = true;
-            },
-            carRentalOrder () {
-                if (this.timeValue == '') {
-                    this.$Message.warning('请选择时间');
-                } else {
-                    console.log(this.timeValue); 
-                    var params = {
-                        orderId: this.orderId,
-                        endTime:getFullDate(this.timeValue,'year'),
-                    }
-                    this.$axios.post('api/order/renewal',params)
-                    .then(data => {
-                        if (data.data.code == 200) {
-                            this.modal = false;
-                            this.$Message.success('成功续约订单，交易成功');
-                            this.getAwaitOrder();   
-                            this.getUnderwayOrder();                         
-                        }
-                    });
-                }
-            },
-            cancel (orderId) {
-                var params = {
-                    orderId: orderId,
-                }
-                this.$axios.post('api/order/deleteOneOrder',params)
-                .then(data => {
-                    if (data.data.code == 200) {
-                        this.$Message.success('成功取消订单');
-                        this.getUnderwayOrder(); 
-                        this.getCancelOrder();                        
-                    }
-                });
-            }
         },
         computed:{
             /**

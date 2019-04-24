@@ -42,7 +42,7 @@
                             订单管理
                         </template>
                         <MenuItem name="">修改订单</MenuItem>
-                        <MenuItem name="">查询订单</MenuItem>
+                        <MenuItem name="/queryOrder">订单查询</MenuItem>
                     </Submenu>
                 </Menu>
             </div>

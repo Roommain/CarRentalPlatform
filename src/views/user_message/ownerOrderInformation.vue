@@ -7,7 +7,7 @@
                     <p class="order-id">订单号： {{item.orderId}}</p>
                     <p class="time">{{item.startTime}} 至 {{item.startTime}}</p>
                     <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                    <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
+                    <p class="money">收益￥： <span>{{item.profit}}</span> 元</p>
                 </li>
             </ul>
             <div class="nodata-img" v-show="!allShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
@@ -19,7 +19,7 @@
                     <p class="order-id">订单号： {{item.orderId}}</p>
                     <p class="time">{{item.startTime}} 至 {{item.startTime}}</p>
                     <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                    <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
+                    <p class="money">收益￥： <span>{{item.profit}}</span> 元</p>
                 </li>
             </ul>
             <div class="nodata-img" v-show="!accomplishShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
@@ -31,7 +31,7 @@
                     <p class="order-id">订单号： {{item.orderId}}</p>
                     <p class="time">{{item.startTime}} 至 {{item.startTime}}</p>
                     <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                    <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
+                    <p class="money">收益￥： <span>{{item.profit}}</span> 元</p>
                 </li>
             </ul>
             <div class="nodata-img" v-show="!underwayShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
@@ -43,7 +43,7 @@
                     <p class="order-id">订单号： {{item.orderId}}</p>
                     <p class="time">{{item.startTime}} 至 {{item.startTime}}</p>
                     <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                    <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
+                    <p class="money">收益￥： <span>{{item.profit}}</span> 元</p>
                 </li>
             </ul>
             <div class="nodata-img" v-show="!awaitShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
@@ -55,7 +55,7 @@
                     <p class="order-id">订单号： {{item.orderId}}</p>
                     <p class="time">{{item.startTime}} 至 {{item.startTime}}</p>
                     <p class="license-number">车牌号： {{item.licensePlateNumber}}</p>
-                    <p class="money">消费金额￥： <span>{{item.rentalMoney}}</span> 元</p>
+                    <p class="money">收益￥： <span>{{item.profit}}</span> 元</p>
                 </li>
             </ul>
             <div class="nodata-img" v-show="!cancelShow"><img src="../../../static/img/timg.jpg" alt=""> </div>
