@@ -10,7 +10,7 @@
                 <router-link tag="li" to="/collect">&nbsp;&nbsp;收藏</router-link>
                 <router-link tag="li" to="/carRental">&nbsp;&nbsp;我要租车</router-link>
                 <router-link tag="li" to="/owner">&nbsp;&nbsp;成为车主</router-link>
-                <router-link tag="li" to="/addownermanag">&nbsp;&nbsp;车主管理</router-link>
+                <router-link v-show="vehicleOwnerShow" tag="li" to="/addownermanag">&nbsp;&nbsp;车主管理</router-link>
                 <router-link v-show="adminShow" tag="li" to="/ownercaraudit">&nbsp;&nbsp;后台管理</router-link>
             </nav>
             <div class="main-user-message">
@@ -31,6 +31,7 @@ import interlayer from '@/views/interlayer/interlayer'
                 loginShow:true,
                 userName:'',
                 adminShow: false,
+                vehicleOwnerShow: false,
             }
         },
         created() {
@@ -50,6 +51,7 @@ import interlayer from '@/views/interlayer/interlayer'
             getUserName () {
                 this.userName = this.$cookie.get('userName') || '';
                 this.isAdmin = this.$cookie.get('isAdmin') || '';
+                this.isVehicleOwner = this.$cookie.get('isVehicleOwner') || '';
                 if(this.userName != '') {
                     this.loginShow = false;
                 }else {
@@ -60,11 +62,11 @@ import interlayer from '@/views/interlayer/interlayer'
                 }else {
                     this.adminShow = false;
                 }
-                // if (this.userName != '') {
-                //     this.logoutShow = true;
-                // }else {
-                //     this.logoutShow = false;
-                // }
+                if(this.isVehicleOwner == '2'){
+                    this.vehicleOwnerShow = true;
+                }else {
+                    this.vehicleOwnerShow = false;
+                }
             },
             userNameSub () {
                 this.$router.push({name: '个人中心'});

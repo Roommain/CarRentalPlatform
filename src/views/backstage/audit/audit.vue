@@ -16,8 +16,8 @@
           </li>
         </ul>
       </div>
-      <div v-show="!auditShow">
-        暂无待审核的数据
+      <div class="nodata-img" v-show="!auditShow">
+        <img src="../../../../static/img/timg.jpg" alt="">
       </div>
   </div>
 </template>
@@ -109,5 +109,11 @@ export default {
 }
 .user-message .user-view .user-main-view {
     padding: 22px 0 22px 0;
+}
+.nodata-img {
+    width: 300px;
+    img {
+        width: 300px;
+    }
 }
 </style>

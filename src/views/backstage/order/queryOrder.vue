@@ -175,20 +175,20 @@
             * @param {Object} obj 当前渲染的对象
             */
             //订单状态// type0（进行中）1（还车）2（完成）3（取消
-                newOrderStatus(){
-                    return function(obj) {
-                        if(obj == 0){
-                            return '进行中';
-                        }else if (obj == 1) {
-                            return '待还车';
-                        }else if (obj == 2) {
-                            return '已完成';
-                        }else if (obj == 3) {
-                            return '已取消';
-                        }
-                    };
-                },
+            newOrderStatus(){
+                return function(obj) {
+                    if(obj == 0){
+                        return '进行中';
+                    }else if (obj == 1) {
+                        return '待还车';
+                    }else if (obj == 2) {
+                        return '已完成';
+                    }else if (obj == 3) {
+                        return '已取消';
+                    }
+                };
             },
+        },
     }
 </script>
 
@@ -260,5 +260,8 @@
     span {
         color: red;
     }
+}
+.user-message .user-view .user-main-view {
+    padding: 22px 0 22px 0px;
 }
 </style>

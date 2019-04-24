@@ -208,6 +208,14 @@ const router = new Router({
               },
               component: resolve => require(['@/views/backstage/order/queryOrder'], resolve),
             },
+            {
+              path: '/disposeCar',
+              name: '处理还车',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/order/disposeCar'], resolve),
+            },
           ]
         },
         {

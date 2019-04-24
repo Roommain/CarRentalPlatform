@@ -37,6 +37,7 @@
                     <el-button type="primary" plain>{{particularsData.licensePlateNumber}}</el-button>
                 </div>
                 <p class="money">￥<span>{{particularsData.rented}}</span> / 天</p>
+                <p class="money">目前需支付￥<span>{{payment}}</span></p>
                 <div class="block">
                     <el-date-picker
                     v-model="timeValue"
@@ -60,6 +61,9 @@ export default {
     data() {
         return {
             timeValue: [],
+            money:0,
+            day:1,
+            payment:0,
             licensePlateNumber:'',
             modal:false,
             isFollow:'',
@@ -146,24 +150,60 @@ export default {
             }   
         },
         carRentalOrder () {
+            this.getBalanceEnquiry();
             if (this.timeValue.length == 0) {
                 this.$Message.warning('请选择时间');
             } else if (this.timeValue.length == 2) {
-                console.log(this.timeValue); 
-                var params = {
-                    licensePlateNumber: this.licensePlateNumber,
-                    startTime: getFullDate(this.timeValue[0],'year'),
-                    endTime:getFullDate(this.timeValue[1],'year'),
-                }
-                this.$axios.post('api/order/addOneOrder',params)
-                .then(data => {
-                    this.modal = false;
-                    this.getParticularsData();
-                    this.$Message.success('成功提交订单，交易成功');
+                this.$confirm('此操作将会扣除账户余额?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    if (this.money >= this.payment) {
+                        var params = {
+                            licensePlateNumber: this.licensePlateNumber,
+                            startTime: getFullDate(this.timeValue[0],'year'),
+                            endTime:getFullDate(this.timeValue[1],'year'),
+                        }
+                        this.$axios.post('api/order/addOneOrder',params)
+                        .then(data => {
+                            this.modal = false;
+                            this.getParticularsData();
+                            this.$message({
+                                type: 'success',
+                                message: '成功提交订单，交易成功'
+                            }); 
+                        });
+                    }else {
+                        this.$message({
+                            type: 'info',
+                            message: '余额不足，请前往充值'
+                        });  
+                    }
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消提交'
+                    });          
                 });
             }
-
-        }
+        },
+        getBalanceEnquiry () {
+            this.$axios.get('api/user/queryBalance')
+            .then(data => {
+                if (data.data.code == 200) {
+                    this.money = data.data.data;
+                }else {
+                    this.$Message.error(data.data.msg);
+                }
+            });
+        },
+        dateMinus (date1,date2) {
+            var sdate = new Date(date1);
+            var now = new Date(date2);
+            var days = now.getTime() - sdate.getTime();
+            this.day = Math.ceil(days / (1000 * 60 * 60 * 24));
+        },
     },
     computed:{
         /**
@@ -193,6 +233,15 @@ export default {
             };
         },
     },
+    watch: {
+        /**
+         * 通过选择日期控制搜索显示
+         */
+        timeValue: function () {
+            this.dateMinus (this.timeValue[0],this.timeValue[1]);
+            this.payment = this.particularsData.rented * this.day;
+        }, 
+    }
 }
 </script>
 
