@@ -141,24 +141,26 @@ export default {
     },
     methods: {
       selectChange () {
-        const params = {
-            vehicleType : this.brandValue,
-            displacement : this.displacementValue
-        };
-        this.$axios
-            .post('api/vehicleTypeRented/selectOne',params)
-            .then(data => {
-                if (data.data.code == 200 && data.data.msg == "暂无相关数据") {
-                  this.moneyValue = 0;
-                }else if (data.data.code == 200 && data.data.msg == "成功") {
-                  this.moneyValue = data.data.data.profit;
-                }else {
-                  this.$Message.error(data.data.msg);
-                }
-            }).catch(() => {
-                this.$Message.error('获取失败');
-                return;
-            });
+        if (this.brandValue != '' && this.displacementValue !='') {
+            const params = {
+                vehicleType : this.brandValue,
+                displacement : this.displacementValue
+            };
+            this.$axios
+                .post('api/vehicleTypeRented/selectOne',params)
+                .then(data => {
+                    if (data.data.code == 200 && data.data.msg == "暂无相关数据") {
+                      this.moneyValue = 0;
+                    }else if (data.data.code == 200 && data.data.msg == "成功") {
+                      this.moneyValue = data.data.data.profit;
+                    }else {
+                      this.$Message.error(data.data.msg);
+                    }
+                }).catch(() => {
+                    this.$Message.error('获取失败');
+                    return;
+                });          
+        }
       },
     },
 }

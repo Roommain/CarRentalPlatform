@@ -2,7 +2,7 @@
   <div class="add-ass">
       <el-form ref="assessData" status-icon :rules="rules" :model="assessData" label-width="80px">
           <el-form-item label="品牌" prop="vehicleType">
-                <el-select v-model="assessData.vehicleType" placeholder="请选择品牌" style="width:300px">
+                <el-select v-model="assessData.vehicleType" placeholder="请选择品牌" style="width:300px" @change="selectChange">
                   <el-option
                     v-for="item in brandOptions"
                     :key="item.value"
@@ -12,7 +12,7 @@
                 </el-select>
           </el-form-item>
           <el-form-item label="排量" prop="displacement">
-                <el-select v-model="assessData.displacement" placeholder="请选择排量" style="width:300px">
+                <el-select v-model="assessData.displacement" placeholder="请选择排量" style="width:300px" @change="selectChange">
                   <el-option
                     v-for="item in displacementOptions"
                     :key="item.value"
@@ -139,7 +139,31 @@ export default {
       },
       resetForm(assessData) {
         this.$refs[assessData].resetFields();
-      }
+      },
+      selectChange () {
+        if (this.assessData.vehicleType != '' && this.assessData.displacement != '') {
+            const params = {
+                vehicleType : this.assessData.vehicleType,
+                displacement : this.assessData.displacement
+            };
+            this.$axios
+                .post('api/vehicleTypeRented/selectOne',params)
+                .then(data => {
+                    if (data.data.code == 200 && data.data.msg == "暂无相关数据") {
+                      this.assessData.rented = '';
+                      this.assessData.profit = '';
+                    }else if (data.data.code == 200 && data.data.msg == "成功") {
+                      this.assessData.rented = data.data.data.rented;
+                      this.assessData.profit = data.data.data.profit;
+                    }else {
+                      this.$Message.error(data.data.msg);
+                    }
+                }).catch(() => {
+                    this.$Message.error('获取失败');
+                    return;
+                });
+        }
+      },
   }
 }
 </script>
