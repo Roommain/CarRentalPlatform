@@ -226,8 +226,12 @@
                 }
                 this.$axios.post('api/order/deleteOneOrder',params)
                 .then(data => {
-                    if (data.data.code == 200) {
+                    if (data.data.code == 200 && data.data.msg == '成功') {
                         this.$Message.success('成功取消订单');
+                        this.getUnderwayOrder(); 
+                        this.getCancelOrder();                        
+                    } else {
+                        this.$Message.success(data.data.msg);
                         this.getUnderwayOrder(); 
                         this.getCancelOrder();                        
                     }
