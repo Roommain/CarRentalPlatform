@@ -211,11 +211,16 @@
                     }
                     this.$axios.post('api/order/renewal',params)
                     .then(data => {
-                        if (data.data.code == 200) {
+                        if (data.data.code == 200 && data.data.msg == '成功') {
                             this.modal = false;
                             this.$Message.success('成功续约订单，交易成功');
                             this.getAwaitOrder();   
                             this.getUnderwayOrder();                         
+                        } else {
+                            this.modal = false;
+                            this.$Message.success(data.data.msg);
+                            this.getAwaitOrder();   
+                            this.getUnderwayOrder();
                         }
                     });
                 }
