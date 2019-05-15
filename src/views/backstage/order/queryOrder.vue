@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <div class="query-order">
+        <div class="export">
+            <el-button size="mini" type="primary" @click="exportPdf" plain>导出pdf</el-button>
+            <el-button size="mini" type="primary" @click="exportExcel" plain>导出excel</el-button>
+        </div>
         <Tabs type="card" class="order">
             <TabPane label="全部">
                 <ul v-show="allShow">
@@ -168,6 +172,14 @@
                     }
                 });
             },
+            exportPdf () {
+                var objectUrl = 'api/order/exportPdf.pdf';
+                window.location.href = objectUrl;
+            },
+            exportExcel () {
+                var objectUrl = 'api/order/exportExcel.xls';
+                window.location.href = objectUrl;
+            }
         },
         computed:{
             /**
@@ -263,5 +275,13 @@
 }
 .user-message .user-view .user-main-view {
     padding: 22px 0 22px 0px;
+}
+.query-order {
+    position: relative;
+}
+.export {
+    position: absolute;
+    right: 0;
+    top: -36px;
 }
 </style>
