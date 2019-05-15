@@ -35,6 +35,7 @@
                         <p class="money clearfix">消费金额￥： <span>{{item.rentalMoney}}</span> 元 
                             <el-button class="button" @click="cancel(item.orderId)" type="danger" size="mini">取消订单</el-button>
                             <el-button class="button" @click="renew(item.orderId)" type="success" size="mini">我要续费</el-button>
+                            <el-button class="button" @click="changeCar(item.orderId)" type="success" size="mini">申请换车</el-button>
                         </p>
                     </li>
                 </ul>
@@ -83,7 +84,20 @@
                 </el-date-picker>
             </div>
             <div class="affirm">
-                <el-button type="success" round @click="carRentalOrder">提交订单</el-button>
+                <el-button type="success" @click="carRentalOrder">提交订单</el-button>
+            </div>
+        </Modal>
+        <Modal
+            v-model="changeCarModal"
+            title="换车订单"
+            width=450
+            :draggable="true"
+            :footer-hide="true">
+            <p class="order-renew">确认订单号：<span>{{orderId}}</span></p>
+            <p>更换原因：</p>
+            <el-input type="textarea" v-model="reason" style="width:400px;"></el-input>
+            <div class="affirm">
+                <el-button type="success" @click="changeCarSubmit">提交订单</el-button>
             </div>
         </Modal>
     </div>
@@ -94,6 +108,8 @@
         data() {
             return {
                 modal:false,
+                changeCarModal:false,
+                reason:'',
                 orderId:0,
                 timeValue:'',
                 allShow:false,
@@ -241,6 +257,27 @@
                         this.getCancelOrder();                        
                     }
                 });
+            },
+            changeCar (orderId) {
+                this.orderId = orderId;
+                this.changeCarModal = true;
+            },
+            changeCarSubmit () {
+                if (this.reason == '') {
+                    this.$Message.warning('请输入换车原因');
+                } else {
+                    var params = {
+                        orderId: this.orderId,
+                        describe: this.reason
+                    }
+                    this.$axios.post('api/order/changeOrderCar',params)
+                    .then(data => {
+                        this.changeCarModal = false;
+                        this.$Message.success(data.data.msg);
+                        this.getAwaitOrder();   
+                        this.getUnderwayOrder();
+                    });
+                } 
             }
         },
         computed:{

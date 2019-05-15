@@ -216,6 +216,14 @@ const router = new Router({
               },
               component: resolve => require(['@/views/backstage/order/disposeCar'], resolve),
             },
+            {
+              path: '/changeCar',
+              name: '处理换车',
+              meta: {
+                permissions: true,
+              },
+              component: resolve => require(['@/views/backstage/order/changeCar'], resolve),
+            },
           ]
         },
         {
