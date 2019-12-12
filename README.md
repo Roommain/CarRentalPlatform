@@ -1,6 +1,6 @@
 # car-rental-platform
 
-> 汽车在线租借平台 http://120.79.66.215:9090
+> 汽车在线租借平台 
 
 ## Build Setup
 
